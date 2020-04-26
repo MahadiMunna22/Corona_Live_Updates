@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements android.widget.Se
         }
         country = Integer.parseInt(val);
 
-        if(country == 0){
+        if(country == 0 && readFromFile(getApplicationContext()).length() != 0){
             //startActivity(new Intent(getApplicationContext(),Home_Activity.class));
             Intent i = new Intent(MainActivity.this, OwnCountry_Activity.class);
             startActivity(i);
