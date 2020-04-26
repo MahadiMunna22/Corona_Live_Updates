@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -20,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-public class Search_Activity extends MainActivity {
+public class Search_Activity extends AppCompatActivity {
     TextView Country, T_T, T_D, T_R, T_I, N_D, N_I, N_T;
     Button submit;
     DatabaseReference dref;

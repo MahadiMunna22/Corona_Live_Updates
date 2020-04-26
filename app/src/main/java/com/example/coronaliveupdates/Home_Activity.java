@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
@@ -20,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-public class Home_Activity extends MainActivity {
+public class Home_Activity extends AppCompatActivity {
     TextView Country, T_T, T_D, T_R, T_I, N_D, N_I, N_T;
     DatabaseReference dref;
     ProgressBar pbar;

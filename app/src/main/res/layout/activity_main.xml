@@ -1,25 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000519"
-    tools:context=".MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
-        android:id="@+id/fragment_container"
+    <LinearLayout
+        style="@style/AppSearchView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_nav"/>
+        android:orientation="vertical">
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bottom_nav"
-        app:itemTextColor="@color/cardview_light_background"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:menu="@menu/bottom_navigation" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/SearchView"
+            android:background="@color/colorPrimary"
+            android:gravity="top"
+            android:padding="5dp"
+            android:text="Select Your Country"
+            android:textAlignment="center"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="30dp"
+            tools:ignore="RtlCompat" />
 
+        <SearchView
+            android:id="@+id/SearchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:iconifiedByDefault="false"
+            android:theme="@style/AppSearchView">
+
+            <requestFocus />
+        </SearchView>
+
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/search" />
+
+    </LinearLayout>
 </RelativeLayout>

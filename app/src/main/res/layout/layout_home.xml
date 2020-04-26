@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000519"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:ignore="MissingDefaultResource">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
