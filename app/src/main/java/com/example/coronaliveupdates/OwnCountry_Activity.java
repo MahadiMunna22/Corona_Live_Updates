@@ -103,7 +103,7 @@ public class OwnCountry_Activity extends AppCompatActivity {
 
 
         navigationView = (BottomNavigationView) findViewById(R.id.bottom_nav);
-        navigationView.setSelectedItemId(R.id.nav_home);
+        navigationView.setSelectedItemId(R.id.nav_favourite);
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

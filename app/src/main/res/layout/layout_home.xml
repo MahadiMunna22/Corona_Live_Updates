@@ -1,185 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000519"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#000519">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="20dp"
         android:layout_above="@id/bottom_nav"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="20dp">
 
         <TextView
-            android:textColor="@color/cardview_light_background"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
             android:id="@+id/Country"
-            android:textSize="40dp"
-            android:text="World"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:paddingBottom="10dp"/>
+            android:paddingBottom="10dp"
+            android:text="World"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="40dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="20dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="20dp">
 
             <LinearLayout
-                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="vertical">
+
                 <TextView
-                    android:layout_height="match_parent"
                     android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
                     android:text="New Death"
                     android:textColor="#FF0000"
-                    android:textSize="20dp"
-                    android:gravity="center"/>
+                    android:textSize="20dp" />
+
                 <TextView
 
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:textSize="20dp"
                     android:id="@+id/New_Death"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:textColor="#F10202"
-                    android:gravity="center"/>
+                    android:textSize="20dp" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="vertical">
+
                 <TextView
-                    android:textColor="@color/cardview_light_background"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
                     android:layout_width="match_parent"
-                    android:textSize="20dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:text="New Infected"
-                    android:gravity="center"/>
-                <TextView
                     android:textColor="@color/cardview_light_background"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:textSize="20dp"
+                    android:textSize="20dp" />
+
+                <TextView
                     android:id="@+id/New_Infected"
-                    android:gravity="center"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="20dp" />
             </LinearLayout>
 
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="20dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="20dp">
 
             <LinearLayout
-                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="vertical">
+
                 <TextView
-                    android:textColor="@color/cardview_light_background"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
                     android:layout_width="match_parent"
-                    android:textSize="20dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:text="Total Recover"
-                    android:gravity="center"/>
-                <TextView
                     android:textColor="@color/cardview_light_background"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:textSize="20dp"
+                    android:textSize="20dp" />
+
+                <TextView
                     android:id="@+id/Total_Recover"
-                    android:gravity="center"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="20dp" />
             </LinearLayout>
+
             <LinearLayout
-                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="vertical">
+
                 <TextView
-                    android:textColor="@color/cardview_light_background"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
                     android:layout_width="match_parent"
-                    android:textSize="20dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:text="Total Tests"
-                    android:gravity="center"/>
-                <TextView
                     android:textColor="@color/cardview_light_background"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:textSize="20dp"
+                    android:textSize="20dp" />
+
+                <TextView
                     android:id="@+id/Total_Tests"
-                    android:gravity="center"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="20dp" />
             </LinearLayout>
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="20dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="20dp">
 
             <LinearLayout
-                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="vertical">
+
                 <TextView
-                    android:textColor="@color/cardview_light_background"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
                     android:layout_width="match_parent"
-                    android:textSize="20dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:text="Total Infacted"
-                    android:gravity="center"/>
-                <TextView
                     android:textColor="@color/cardview_light_background"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:textSize="20dp"
+                    android:textSize="20dp" />
+
+                <TextView
                     android:id="@+id/Total_Infected"
-                    android:gravity="center"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="20dp" />
             </LinearLayout>
+
             <LinearLayout
-                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
-                    android:textColor="@color/cardview_light_background"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
                     android:layout_width="match_parent"
-                    android:textSize="20dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:text="Total Death"
-                    android:gravity="center"/>
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="20dp" />
 
                 <TextView
-                    android:textColor="@color/cardview_light_background"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:textSize="20dp"
                     android:id="@+id/Total_Death"
-                    android:gravity="center"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="20dp" />
             </LinearLayout>
 
         </LinearLayout>
@@ -189,16 +204,17 @@
             style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </LinearLayout>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_nav"
-        app:itemIconTint="@color/cardview_light_background"
         app:itemTextColor="@color/cardview_light_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:itemIconTint="@color/cardview_light_background"
         android:layout_alignParentBottom="true"
-        app:menu="@menu/bottom_navigation"/>
+        app:menu="@menu/bottom_navigation"
+        tools:ignore="PrivateResource" />
 
 </RelativeLayout>
