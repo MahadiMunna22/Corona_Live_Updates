@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "998474084764",
+    "firebase_url": "https://corona-update-98abd.firebaseio.com",
+    "project_id": "corona-update-98abd",
+    "storage_bucket": "corona-update-98abd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:998474084764:android:b16d7b736b78ca91071859",
+        "android_client_info": {
+          "package_name": "com.example.coronaliveupdates"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "998474084764-qadcrp5lsc549jp726hvep5t4b6ia53g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.coronaliveupdates",
+            "certificate_hash": "6e0c6f998200aac8b9c409029f15fa2f5a39e91f"
+          }
+        },
+        {
+          "client_id": "998474084764-6iq0fjc194qp1e410n8klqsma8u4htv5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUKTvBJI6D6xdQjnGgKs2L2WwyIZwdPR0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "998474084764-6iq0fjc194qp1e410n8klqsma8u4htv5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
