@@ -71,12 +71,6 @@ public class Table_Activity extends AppCompatActivity implements NavigationView.
             }
         });
 
-//        for(int i=0;i<100;i++){
-//            countryDataTable.addStringArrayContents(new String[]{"India", "299", "2","Apple","Banana","Crocodile","Dinosaur","Elephat"},8);
-//            countryDataTable.addStringArrayContents(new String[]{"Japan", "19", "5","Apple","Banana","Crocodile","Dinosaur","Elephat"},8);
-//            countryDataTable.addStringArrayContents(new String[]{"USA", "500", "10","Apple","Banana","Crocodile","Dinosaur","Elephat"},8);
-//
-//        }
         Log.d("TAG1","I came here 2");
 
         navigationView = (BottomNavigationView) findViewById(R.id.bottom_nav);

@@ -11,6 +11,6 @@
         android:title="Your Country"/>
     <item
         android:id="@+id/nav_search"
-        android:icon="@drawable/ic_search_black_24dp"
-        android:title="Search"/>
+        android:icon="@drawable/ic_data_usage_black_24dp"
+        android:title="Table"/>
 </menu>
