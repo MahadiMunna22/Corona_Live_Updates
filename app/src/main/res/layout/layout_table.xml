@@ -13,11 +13,24 @@
         android:layout_height="match_parent"
         android:background="#000519"
         xmlns:app="http://schemas.android.com/apk/res-auto">
-        <WebView
-            android:layout_width="match_parent"
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/MapWebView"
-            android:layout_above="@id/bottom_nav"/>
+            android:scrollbars="horizontal|vertical"
+            android:layout_above="@id/bottom_nav">
+
+            <ScrollView
+                android:id="@+id/scrollview"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" >
+
+                <TableLayout
+                    android:id="@+id/table_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TableLayout>
+            </ScrollView>
+        </HorizontalScrollView>
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/bottom_nav"
@@ -34,6 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity = "start"
+        app:itemTextColor="@color/cardview_light_background"
         android:background="@color/colorActionBar"
         app:menu="@menu/nav_view"/>
 </android.support.v4.widget.DrawerLayout>

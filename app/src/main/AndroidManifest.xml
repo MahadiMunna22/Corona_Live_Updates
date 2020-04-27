@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Home_Activity" />
-        <activity android:name=".Search_Activity" />
+        <activity android:name=".Table_Activity" />
         <activity android:name=".OwnCountry_Activity" />
     </application>
 

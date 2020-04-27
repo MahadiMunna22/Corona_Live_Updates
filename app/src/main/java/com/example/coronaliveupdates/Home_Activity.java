@@ -104,7 +104,7 @@ public class Home_Activity extends AppCompatActivity implements NavigationView.O
                     startActivity(new Intent(getApplicationContext(), OwnCountry_Activity.class));
                     overridePendingTransition(0,0);
                 } else if (itemId == R.id.nav_search) {
-                    startActivity(new Intent(getApplicationContext(), Search_Activity.class));
+                    startActivity(new Intent(getApplicationContext(), Table_Activity.class));
                     overridePendingTransition(0,0);
                 }
 

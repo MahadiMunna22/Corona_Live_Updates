@@ -228,5 +228,6 @@
         android:layout_height="match_parent"
         android:layout_gravity = "start"
         android:background="@color/colorActionBar"
+        app:itemTextColor="@color/cardview_light_background"
         app:menu="@menu/nav_view"/>
 </android.support.v4.widget.DrawerLayout>

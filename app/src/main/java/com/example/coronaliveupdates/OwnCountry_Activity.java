@@ -116,7 +116,7 @@ public class OwnCountry_Activity extends AppCompatActivity  implements Navigatio
                     overridePendingTransition(0,0);
                 }
                 else if (itemId == R.id.nav_search) {
-                    startActivity(new Intent(getApplicationContext(), Search_Activity.class));
+                    startActivity(new Intent(getApplicationContext(), Table_Activity.class));
                     overridePendingTransition(0,0);
                 }
 

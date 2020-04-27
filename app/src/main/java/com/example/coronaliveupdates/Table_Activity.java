@@ -1,27 +1,19 @@
 package com.example.coronaliveupdates;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.PermissionRequest;
-import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.widget.TableLayout;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,45 +21,63 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
-
-public class Search_Activity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class Table_Activity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle toggle;
-    WebView webView;
     BottomNavigationView navigationView;
+    DatabaseReference dref;
+    @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_search);
-        webView = findViewById(R.id.MapWebView);
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setAppCacheEnabled(true);
+        setContentView(R.layout.layout_table);
+
+        Log.d("TAG1","I came here");
+        dref = FirebaseDatabase.getInstance().getReference().child("Corona");
+        final CountryDataTable countryDataTable=new CountryDataTable((TableLayout) findViewById(R.id.table_id));
+        countryDataTable.addTableHeaderContents(new String[]{"Country,\nOthers", "Total \nCases", "New \nCases","Total \nDeaths","New \nDeaths","Total \nRecovered","Active \nCases","Total \nTests"},8);
+
+        dref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String countryName = "World";
+                try {
+                    countryDataTable.addStringArrayContents(new String[]{countryName, dataSnapshot.child(countryName).child("Total_Cases").getValue().toString()
+                            , dataSnapshot.child(countryName).child("New_Cases").getValue().toString(), dataSnapshot.child(countryName).child("Total_Deaths").getValue().toString()
+                            , dataSnapshot.child(countryName).child("New_Deaths").getValue().toString(), dataSnapshot.child(countryName).child("Total_Recovered").getValue().toString()
+                            , dataSnapshot.child(countryName).child("Active_Cases").getValue().toString(), dataSnapshot.child(countryName).child("Total_Tests").getValue().toString()}, 8);
 
 
+                for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
+                    countryName = childSnapshot.getKey();
+                    if(!countryName.equals("World")) {
+                        countryDataTable.addStringArrayContents(new String[]{countryName, dataSnapshot.child(countryName).child("Total_Cases").getValue().toString()
+                                , dataSnapshot.child(countryName).child("New_Cases").getValue().toString(), dataSnapshot.child(countryName).child("Total_Deaths").getValue().toString()
+                                , dataSnapshot.child(countryName).child("New_Deaths").getValue().toString(), dataSnapshot.child(countryName).child("Total_Recovered").getValue().toString()
+                                , dataSnapshot.child(countryName).child("Active_Cases").getValue().toString(), dataSnapshot.child(countryName).child("Total_Tests").getValue().toString()}, 8);
+                    }
+                }
+                }
+                catch (NullPointerException e){
 
-        webView.setWebViewClient(new WebViewClient(){
+                }
+
+            }
 
             @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                return super.shouldOverrideUrlLoading(view, request);
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
-        webView.setWebChromeClient(new WebChromeClient(){
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-            @Override
-            public void onPermissionRequest(PermissionRequest request) {
-                request.grant(request.getResources());
-            }
-        });
-       // String webContent="<iframe src=\"https://www.arcgis.com/apps/opsdashboard/index.html#/85320e2ea5424dfaaa75ae62e5c06e61\" style=\"border:0px #ffffff none;\" name=\"myiFrame\" scrolling=\"no\" frameborder=\"1\" marginheight=\"0px\" marginwidth=\"0px\" height=\"100%\" width=\"100%\" allowfullscreen></iframe>";
-        webView.loadUrl("https://infogram.com/table-chart-1h0r6r95xld76ek?live");
 
-
-
+//        for(int i=0;i<100;i++){
+//            countryDataTable.addStringArrayContents(new String[]{"India", "299", "2","Apple","Banana","Crocodile","Dinosaur","Elephat"},8);
+//            countryDataTable.addStringArrayContents(new String[]{"Japan", "19", "5","Apple","Banana","Crocodile","Dinosaur","Elephat"},8);
+//            countryDataTable.addStringArrayContents(new String[]{"USA", "500", "10","Apple","Banana","Crocodile","Dinosaur","Elephat"},8);
+//
+//        }
+        Log.d("TAG1","I came here 2");
 
         navigationView = (BottomNavigationView) findViewById(R.id.bottom_nav);
         navigationView.setSelectedItemId(R.id.nav_search);
