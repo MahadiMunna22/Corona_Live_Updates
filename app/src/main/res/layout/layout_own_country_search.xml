@@ -196,20 +196,10 @@
                     </LinearLayout>
 
                 </LinearLayout>
-                <Button
-                    android:id="@+id/Btn_changeCountry"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:text="Change Country"
-                    android:background="#0394C1"
-                    android:textColor="@color/cardview_light_background"/>
-
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    style="?android:attr/progressBarStyle"
+                <WebView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"/>
+                    android:id="@+id/webview"/>
             </LinearLayout>
         </ScrollView>
 

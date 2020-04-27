@@ -12,8 +12,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.PermissionRequest;
+import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -38,11 +45,10 @@ import static android.view.View.VISIBLE;
 public class OwnCountry_Activity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener {
     TextView Country, T_T, T_D, T_R, T_I, N_D, N_I, N_T;
     DatabaseReference dref;
-    ProgressBar pbar;
-    Button btn_changeCountry;
     LinearLayout linearLayout;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle toggle;
+    WebView webView;
 
     BottomNavigationView navigationView;
     @Override
@@ -57,14 +63,11 @@ public class OwnCountry_Activity extends AppCompatActivity  implements Navigatio
         T_I = findViewById(R.id.Total_Infected);
         N_D = findViewById(R.id.New_Death);
         N_I = findViewById(R.id.New_Infected);
-        pbar = findViewById(R.id.progressBar);
         linearLayout = findViewById(R.id.LinearLayout);
-
-
+        webView = findViewById(R.id.webview);
         final String[] country = {"World"};
 
         country[0] = readFromFile(getApplicationContext());
-        pbar.setVisibility(VISIBLE);
         linearLayout.setVisibility(GONE);
 
         dref = FirebaseDatabase.getInstance().getReference().child("Corona").child(country[0]);
@@ -92,7 +95,6 @@ public class OwnCountry_Activity extends AppCompatActivity  implements Navigatio
                     T_I.setText(total_infected);
                     N_D.setText(new_death);
                     N_I.setText(new_Infected);
-                    pbar.setVisibility(GONE);
                     linearLayout.setVisibility(VISIBLE);
                 }
                 catch (NullPointerException e){
@@ -124,15 +126,25 @@ public class OwnCountry_Activity extends AppCompatActivity  implements Navigatio
             }
         });
 
-        btn_changeCountry = findViewById(R.id.Btn_changeCountry);
-        btn_changeCountry.setOnClickListener(new View.OnClickListener() {
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setAppCacheEnabled(true);
+
+        webView.setWebViewClient(new WebViewClient(){
             @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(),MainActivity.class);
-                i.putExtra("CountrySelected","1");
-                startActivity(i);
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                return super.shouldOverrideUrlLoading(view, request);
             }
         });
+        webView.setWebChromeClient(new WebChromeClient(){
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onPermissionRequest(PermissionRequest request) {
+                request.grant(request.getResources());
+            }
+        });
+        String webContent="<iframe src=\"https://e.infogram.com/d86a5ab1-a8fa-4564-a941-5fc913485e1f?parent_url=https%3A%2F%2Fcovid19statebd.weebly.com%2F&src=embed#async_embed\" style=\"border:0px #ffffff none;\" name=\"myiFrame\" scrolling=\"no\" frameborder=\"1\" marginheight=\"0px\" marginwidth=\"0px\" height=\"450px\" width=\"100%\" allowfullscreen></iframe>";
+        webView.loadDataWithBaseURL(null,"<style>img{display: inline;height: auto;max-width: 100%;}</style>" + webContent,"text/html", "UTF-8", null);
 
         drawerLayout = findViewById(R.id.DrawerLayout);
         NavigationView navigationView = findViewById(R.id.navigation_view);
@@ -144,10 +156,21 @@ public class OwnCountry_Activity extends AppCompatActivity  implements Navigatio
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.change_country, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(toggle.onOptionsItemSelected(item))
+        if(item.getItemId() == R.id.Change_country){
+            Intent i = new Intent(getApplicationContext(),MainActivity.class);
+            i.putExtra("CountrySelected","1");
+            startActivity(i);
             return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
