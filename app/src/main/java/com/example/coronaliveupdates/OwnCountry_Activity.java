@@ -7,16 +7,17 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,28 +27,28 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 
-public class OwnCountry_Activity extends AppCompatActivity {
+public class OwnCountry_Activity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener {
     TextView Country, T_T, T_D, T_R, T_I, N_D, N_I, N_T;
     DatabaseReference dref;
     ProgressBar pbar;
     Button btn_changeCountry;
+    LinearLayout linearLayout;
+    DrawerLayout drawerLayout;
+    ActionBarDrawerToggle toggle;
 
     BottomNavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.own_country_search);
+        setContentView(R.layout.layout_own_country_search);
 
         Country = findViewById(R.id.Country);
         T_T = findViewById(R.id.Total_Tests);
@@ -57,11 +58,14 @@ public class OwnCountry_Activity extends AppCompatActivity {
         N_D = findViewById(R.id.New_Death);
         N_I = findViewById(R.id.New_Infected);
         pbar = findViewById(R.id.progressBar);
+        linearLayout = findViewById(R.id.LinearLayout);
+
 
         final String[] country = {"World"};
 
         country[0] = readFromFile(getApplicationContext());
         pbar.setVisibility(VISIBLE);
+        linearLayout.setVisibility(GONE);
 
         dref = FirebaseDatabase.getInstance().getReference().child("Corona").child(country[0]);
         dref.addValueEventListener(new ValueEventListener() {
@@ -89,6 +93,7 @@ public class OwnCountry_Activity extends AppCompatActivity {
                     N_D.setText(new_death);
                     N_I.setText(new_Infected);
                     pbar.setVisibility(GONE);
+                    linearLayout.setVisibility(VISIBLE);
                 }
                 catch (NullPointerException e){
                     Log.d("Tag1","Null Pointer Exception");
@@ -100,8 +105,6 @@ public class OwnCountry_Activity extends AppCompatActivity {
 
             }
         });
-
-
         navigationView = (BottomNavigationView) findViewById(R.id.bottom_nav);
         navigationView.setSelectedItemId(R.id.nav_favourite);
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -111,10 +114,8 @@ public class OwnCountry_Activity extends AppCompatActivity {
                 if (itemId == R.id.nav_home) {
                     startActivity(new Intent(getApplicationContext(), Home_Activity.class));
                     overridePendingTransition(0,0);
-                } else if (itemId == R.id.nav_favourite) {
-                    startActivity(new Intent(getApplicationContext(), OwnCountry_Activity.class));
-                    overridePendingTransition(0,0);
-                } else if (itemId == R.id.nav_search) {
+                }
+                else if (itemId == R.id.nav_search) {
                     startActivity(new Intent(getApplicationContext(), Search_Activity.class));
                     overridePendingTransition(0,0);
                 }
@@ -133,7 +134,43 @@ public class OwnCountry_Activity extends AppCompatActivity {
             }
         });
 
+        drawerLayout = findViewById(R.id.DrawerLayout);
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
+        toggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(toggle.onOptionsItemSelected(item))
+            return true;
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.menu_home) {
+            Intent i = new Intent(getApplicationContext(), Home_Activity.class);
+            startActivity(i);
+        }
+        else if(item.getItemId() == R.id.menu_map) {
+            Intent i = new Intent(getApplicationContext(), Map_Activity.class);
+            startActivity(i);
+        }
+        else if(item.getItemId() == R.id.menu_coronatest) {
+            Intent i = new Intent(getApplicationContext(), CoronaTest.class);
+            startActivity(i);
+        }
+        else if(item.getItemId() == R.id.menu_aboutus) {
+            Intent i = new Intent(getApplicationContext(), AboutUs.class);
+            startActivity(i);
+        }
+        return false;
     }
     private String readFromFile(Context context) {
 
@@ -164,4 +201,6 @@ public class OwnCountry_Activity extends AppCompatActivity {
 
         return ret.substring(1);
     }
+
+
 }

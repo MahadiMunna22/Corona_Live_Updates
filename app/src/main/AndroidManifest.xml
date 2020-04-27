@@ -3,8 +3,8 @@
     package="com.example.coronaliveupdates">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -13,6 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".AboutUs"></activity>
+        <activity android:name=".CoronaTest" />
+        <activity android:name=".Map_Activity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,9 +23,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Home_Activity"/>
-        <activity android:name=".Search_Activity"/>
-        <activity android:name=".OwnCountry_Activity"/>
+        <activity android:name=".Home_Activity" />
+        <activity android:name=".Search_Activity" />
+        <activity android:name=".OwnCountry_Activity" />
     </application>
 
 </manifest>

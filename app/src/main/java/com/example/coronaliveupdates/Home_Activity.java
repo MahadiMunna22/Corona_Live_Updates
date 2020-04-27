@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -21,16 +25,21 @@ import com.google.firebase.database.ValueEventListener;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-public class Home_Activity extends AppCompatActivity {
+public class Home_Activity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     TextView Country, T_T, T_D, T_R, T_I, N_D, N_I, N_T;
     DatabaseReference dref;
     ProgressBar pbar;
+    DrawerLayout drawerLayout;
+    ActionBarDrawerToggle toggle;
 
     BottomNavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_home);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Home");
+        actionBar.setLogo(R.drawable.ic_favorite_24dp);
 
         Country = findViewById(R.id.Country);
         T_T = findViewById(R.id.Total_Tests);
@@ -91,10 +100,7 @@ public class Home_Activity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
-                if (itemId == R.id.nav_home) {
-                    startActivity(new Intent(getApplicationContext(), Home_Activity.class));
-                    overridePendingTransition(0,0);
-                } else if (itemId == R.id.nav_favourite) {
+                if (itemId == R.id.nav_favourite) {
                     startActivity(new Intent(getApplicationContext(), OwnCountry_Activity.class));
                     overridePendingTransition(0,0);
                 } else if (itemId == R.id.nav_search) {
@@ -107,6 +113,42 @@ public class Home_Activity extends AppCompatActivity {
         });
 
 
+        drawerLayout = findViewById(R.id.DrawerLayout);
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        toggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(toggle.onOptionsItemSelected(item))
+            return true;
+        return super.onOptionsItemSelected(item);
     }
 
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.menu_home) {
+            Intent i = new Intent(getApplicationContext(), Home_Activity.class);
+            startActivity(i);
+        }
+        else if(item.getItemId() == R.id.menu_map) {
+            Intent i = new Intent(getApplicationContext(), Map_Activity.class);
+            startActivity(i);
+        }
+        else if(item.getItemId() == R.id.menu_coronatest) {
+            Intent i = new Intent(getApplicationContext(), CoronaTest.class);
+            startActivity(i);
+        }
+        else if(item.getItemId() == R.id.menu_aboutus) {
+            Intent i = new Intent(getApplicationContext(), AboutUs.class);
+            startActivity(i);
+        }
+        return false;
+    }
 }

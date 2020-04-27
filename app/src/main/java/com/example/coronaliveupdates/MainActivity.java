@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements android.widget.Se
             overridePendingTransition(0,0);
         }
         else {
-
             countryList = new String[]{
                     "Afghanistan",
                     "Albania",

@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,12 +24,14 @@ import com.google.firebase.database.ValueEventListener;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-public class Search_Activity extends AppCompatActivity {
+public class Search_Activity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     TextView Country, T_T, T_D, T_R, T_I, N_D, N_I, N_T;
     Button submit;
     DatabaseReference dref;
     ProgressBar pbar;
     EditText EditCountry;
+    DrawerLayout drawerLayout;
+    ActionBarDrawerToggle toggle;
 
     BottomNavigationView navigationView;
     @Override
@@ -113,13 +118,49 @@ public class Search_Activity extends AppCompatActivity {
                 } else if (itemId == R.id.nav_favourite) {
                     startActivity(new Intent(getApplicationContext(), OwnCountry_Activity.class));
                     overridePendingTransition(0,0);
-                } else if (itemId == R.id.nav_search) {
-                    startActivity(new Intent(getApplicationContext(), Search_Activity.class));
-                    overridePendingTransition(0,0);
                 }
 
                 return true;
             }
         });
+
+
+        drawerLayout = findViewById(R.id.DrawerLayout);
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        toggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(toggle.onOptionsItemSelected(item))
+            return true;
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.menu_home) {
+            Intent i = new Intent(getApplicationContext(), Home_Activity.class);
+            startActivity(i);
+        }
+        else if(item.getItemId() == R.id.menu_map) {
+            Intent i = new Intent(getApplicationContext(), Map_Activity.class);
+            startActivity(i);
+        }
+        else if(item.getItemId() == R.id.menu_coronatest) {
+            Intent i = new Intent(getApplicationContext(), CoronaTest.class);
+            startActivity(i);
+        }
+        else if(item.getItemId() == R.id.menu_aboutus) {
+            Intent i = new Intent(getApplicationContext(), AboutUs.class);
+            startActivity(i);
+        }
+        return false;
     }
 }

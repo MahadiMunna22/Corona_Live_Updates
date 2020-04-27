@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_home"
+            android:title="Home" />
+        <item
+            android:title="Map"
+            android:id="@+id/menu_map" />
+        <item
+            android:title="Corona Test"
+            android:id="@+id/menu_coronatest" />
+        <item
+            android:title="About Us"
+            android:id="@+id/menu_aboutus" />
+    </group>
+</menu>
