@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:hardwareAccelerated="true">
+        android:hardwareAccelerated="true"
+        android:usesCleartextTraffic="true">
         <activity android:name=".AboutUs"></activity>
         <activity android:name=".CoronaTest" />
         <activity android:name=".Map_Activity" />
