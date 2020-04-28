@@ -24,7 +24,7 @@ public class CountryDataTable {
 		//making the table row
 		TableRow tableRow=new TableRow(tableLayout.getContext());
 		tableRow.setOrientation(LinearLayout.HORIZONTAL);
-		tableRow.setPaddingRelative(10,10,10,10);
+		//tableRow.setPadding(10,10,10,10);
 
 		//making the textview array
 		TextView[] textView=new TextView[stringArrayLength];
@@ -34,7 +34,7 @@ public class CountryDataTable {
 			textView[i]=new TextView(tableLayout.getContext());
 			textView[i].setText(stringArray[i]);
 			textView[i].setTextColor(Color.WHITE);
-			textView[i].setPadding(10,10,10,10);
+			textView[i].setPadding(15,10,15,10);
 
 			textView[i].setAllCaps(true);
 			textView[i].setBackgroundColor(Color.BLACK);
@@ -56,7 +56,7 @@ public class CountryDataTable {
 		//making the table row
 		TableRow tableRow=new TableRow(tableLayout.getContext());
 		tableRow.setOrientation(LinearLayout.HORIZONTAL);
-		tableRow.setPadding(10,1,10,1);
+		tableRow.setPadding(1,1,1,1);
 		//making the textview array
 		TextView[] textView=new TextView[stringArrayLength];
 

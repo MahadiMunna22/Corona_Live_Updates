@@ -11,6 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#000519">
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/SwipeRefresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <ScrollView
                 android:id="@+id/scrollview"
@@ -18,7 +22,9 @@
                 android:layout_height="match_parent"
                 android:layout_above="@id/bottom_nav"
                 android:fillViewport="true">
+
                 <LinearLayout
+                    android:id="@+id/HomeLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
@@ -208,15 +214,10 @@
                         </LinearLayout>
 
                     </LinearLayout>
-                    <ProgressBar
-                        android:id="@+id/progressBar"
-                        style="?android:attr/progressBarStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"/>
 
                 </LinearLayout>
             </ScrollView>
+        </android.support.v4.widget.SwipeRefreshLayout>
 
         <android.support.design.widget.BottomNavigationView
 

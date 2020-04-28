@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#001145</color>
-    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorPrimary">#0E1F53</color>
+    <color name="colorPrimaryDark">#1F1F20</color>
     <color name="colorAccent">#03DAC5</color>
-    <color name="colorActionBar">#001555</color>
+    <color name="colorActionBar">#091330</color>
     <color name="colorBackGround">#000519</color>
+
+    <color name="swipe1">#FFFFFF</color>
+    <color name="swipe2">#637CFF</color>
+    <color name="swipe3">#55FF48</color>
+    <color name="swipe4">#5C5C5C</color>
+
 </resources>

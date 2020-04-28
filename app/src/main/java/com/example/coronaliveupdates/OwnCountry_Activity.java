@@ -9,21 +9,19 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.webkit.PermissionRequest;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -49,13 +47,16 @@ public class OwnCountry_Activity extends AppCompatActivity  implements Navigatio
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle toggle;
     WebView webView;
+    SwipeRefreshLayout sr;
 
     BottomNavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_own_country_search);
-
+        sr = findViewById(R.id.SwipeRefresh);
+        sr.setProgressBackgroundColorSchemeResource(R.color.swipe4);
+        sr.setColorSchemeResources(R.color.swipe1,R.color.swipe2,R.color.swipe3);
         Country = findViewById(R.id.Country);
         T_T = findViewById(R.id.Total_Tests);
         T_R = findViewById(R.id.Total_Recover);
@@ -69,6 +70,14 @@ public class OwnCountry_Activity extends AppCompatActivity  implements Navigatio
 
         country[0] = readFromFile(getApplicationContext());
         linearLayout.setVisibility(GONE);
+        sr.setRefreshing(true);
+        sr.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                restartActivity();
+            }
+        });
+
 
         dref = FirebaseDatabase.getInstance().getReference().child("Corona").child(country[0]);
         dref.addValueEventListener(new ValueEventListener() {
@@ -96,6 +105,7 @@ public class OwnCountry_Activity extends AppCompatActivity  implements Navigatio
                     N_D.setText(new_death);
                     N_I.setText(new_Infected);
                     linearLayout.setVisibility(VISIBLE);
+                    sr.setRefreshing(false);
                 }
                 catch (NullPointerException e){
                     Log.d("Tag1","Null Pointer Exception");
@@ -108,17 +118,21 @@ public class OwnCountry_Activity extends AppCompatActivity  implements Navigatio
             }
         });
         navigationView = (BottomNavigationView) findViewById(R.id.bottom_nav);
-        navigationView.setSelectedItemId(R.id.nav_favourite);
+        navigationView.setSelectedItemId(R.id.nav_ownCountry);
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
                 if (itemId == R.id.nav_home) {
-                    startActivity(new Intent(getApplicationContext(), Home_Activity.class));
+                    Intent intent = new Intent(getApplicationContext(), Home_Activity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                     overridePendingTransition(0,0);
                 }
-                else if (itemId == R.id.nav_search) {
-                    startActivity(new Intent(getApplicationContext(), Table_Activity.class));
+                else if (itemId == R.id.nav_table) {
+                    Intent intent = new Intent(getApplicationContext(), Table_Activity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                     overridePendingTransition(0,0);
                 }
 
@@ -171,6 +185,8 @@ public class OwnCountry_Activity extends AppCompatActivity  implements Navigatio
             startActivity(i);
             return true;
         }
+        if(toggle.onOptionsItemSelected(item))
+            return true;
         return super.onOptionsItemSelected(item);
     }
 
@@ -223,6 +239,15 @@ public class OwnCountry_Activity extends AppCompatActivity  implements Navigatio
         }
 
         return ret.substring(1);
+    }
+
+    public void restartActivity(){
+        Intent intent = getIntent();
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(intent);
     }
 
 

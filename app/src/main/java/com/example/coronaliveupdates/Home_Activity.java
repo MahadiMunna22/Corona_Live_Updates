@@ -8,11 +8,13 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -31,7 +33,8 @@ public class Home_Activity extends AppCompatActivity implements NavigationView.O
     ProgressBar pbar;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle toggle;
-
+    SwipeRefreshLayout sr;
+    LinearLayout linearLayout;
     BottomNavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +42,20 @@ public class Home_Activity extends AppCompatActivity implements NavigationView.O
         setContentView(R.layout.layout_home);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Home");
-        actionBar.setLogo(R.drawable.ic_favorite_24dp);
 
+        linearLayout = (LinearLayout) findViewById(R.id.HomeLayout);
+        sr = findViewById(R.id.SwipeRefresh);
+        sr.setRefreshing(true);
+        sr.setProgressBackgroundColorSchemeResource(R.color.swipe4);
+        sr.setColorSchemeResources(R.color.swipe1,R.color.swipe2,R.color.swipe3);
+        sr.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                restartActivity();
+            }
+        });
+
+        linearLayout.setVisibility(GONE);
         Country = findViewById(R.id.Country);
         T_T = findViewById(R.id.Total_Tests);
         T_R = findViewById(R.id.Total_Recover);
@@ -48,12 +63,10 @@ public class Home_Activity extends AppCompatActivity implements NavigationView.O
         T_I = findViewById(R.id.Total_Infected);
         N_D = findViewById(R.id.New_Death);
         N_I = findViewById(R.id.New_Infected);
-        pbar = findViewById(R.id.progressBar);
 
         final String[] country = {"World"};
 
         country[0] = "World";
-        pbar.setVisibility(VISIBLE);
 
         dref = FirebaseDatabase.getInstance().getReference().child("Corona").child(country[0]);
         dref.addValueEventListener(new ValueEventListener() {
@@ -80,7 +93,8 @@ public class Home_Activity extends AppCompatActivity implements NavigationView.O
                     T_I.setText(total_infected);
                     N_D.setText(new_death);
                     N_I.setText(new_Infected);
-                    pbar.setVisibility(GONE);
+                    linearLayout.setVisibility(VISIBLE);
+                    sr.setRefreshing(false);
                 }
                 catch (NullPointerException e){
                     Log.d("Tag1","Null Pointer Exception");
@@ -100,11 +114,15 @@ public class Home_Activity extends AppCompatActivity implements NavigationView.O
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
-                if (itemId == R.id.nav_favourite) {
-                    startActivity(new Intent(getApplicationContext(), OwnCountry_Activity.class));
+                if (itemId == R.id.nav_ownCountry) {
+                    Intent intent = new Intent(getApplicationContext(), OwnCountry_Activity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                     overridePendingTransition(0,0);
-                } else if (itemId == R.id.nav_search) {
-                    startActivity(new Intent(getApplicationContext(), Table_Activity.class));
+                } else if (itemId == R.id.nav_table) {
+                    Intent intent = new Intent(getApplicationContext(), Table_Activity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                     overridePendingTransition(0,0);
                 }
 
@@ -150,5 +168,13 @@ public class Home_Activity extends AppCompatActivity implements NavigationView.O
             startActivity(i);
         }
         return false;
+    }
+    public void restartActivity(){
+        Intent intent = getIntent();
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(intent);
     }
 }

@@ -7,12 +7,11 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.webkit.WebView;
 import android.widget.TableLayout;
 
 import com.google.firebase.database.DataSnapshot;
@@ -27,17 +26,30 @@ public class Table_Activity extends AppCompatActivity implements NavigationView.
     ActionBarDrawerToggle toggle;
     BottomNavigationView navigationView;
     DatabaseReference dref;
+    SwipeRefreshLayout sr;
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_table);
 
+
+
         Log.d("TAG1","I came here");
         dref = FirebaseDatabase.getInstance().getReference().child("Corona");
         final CountryDataTable countryDataTable=new CountryDataTable((TableLayout) findViewById(R.id.table_id));
         countryDataTable.addTableHeaderContents(new String[]{"Country,\nOthers", "Total \nCases", "New \nCases","Total \nDeaths","New \nDeaths","Total \nRecovered","Active \nCases","Total \nTests"},8);
 
+        sr = findViewById(R.id.SwipeRefreshTable);
+        sr.setProgressBackgroundColorSchemeResource(R.color.swipe4);
+        sr.setColorSchemeResources(R.color.swipe1,R.color.swipe2,R.color.swipe3);
+        sr.setRefreshing(true);
+        sr.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                restartActivity();
+            }
+        });
         dref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -49,22 +61,20 @@ public class Table_Activity extends AppCompatActivity implements NavigationView.
                             , dataSnapshot.child(countryName).child("Active_Cases").getValue().toString(), dataSnapshot.child(countryName).child("Total_Tests").getValue().toString()}, 8);
 
 
-                for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
-                    countryName = childSnapshot.getKey();
-                    if(!countryName.equals("World")) {
-                        countryDataTable.addStringArrayContents(new String[]{countryName, dataSnapshot.child(countryName).child("Total_Cases").getValue().toString()
-                                , dataSnapshot.child(countryName).child("New_Cases").getValue().toString(), dataSnapshot.child(countryName).child("Total_Deaths").getValue().toString()
-                                , dataSnapshot.child(countryName).child("New_Deaths").getValue().toString(), dataSnapshot.child(countryName).child("Total_Recovered").getValue().toString()
-                                , dataSnapshot.child(countryName).child("Active_Cases").getValue().toString(), dataSnapshot.child(countryName).child("Total_Tests").getValue().toString()}, 8);
+                    for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
+                        countryName = childSnapshot.getKey();
+                        if(!countryName.equals("World")) {
+                            countryDataTable.addStringArrayContents(new String[]{countryName, dataSnapshot.child(countryName).child("Total_Cases").getValue().toString()
+                                    , dataSnapshot.child(countryName).child("New_Cases").getValue().toString(), dataSnapshot.child(countryName).child("Total_Deaths").getValue().toString()
+                                    , dataSnapshot.child(countryName).child("New_Deaths").getValue().toString(), dataSnapshot.child(countryName).child("Total_Recovered").getValue().toString()
+                                    , dataSnapshot.child(countryName).child("Active_Cases").getValue().toString(), dataSnapshot.child(countryName).child("Total_Tests").getValue().toString()}, 8);
+                        }
                     }
-                }
+                    sr.setRefreshing(false);
                 }
                 catch (NullPointerException e){
-
                 }
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -74,16 +84,20 @@ public class Table_Activity extends AppCompatActivity implements NavigationView.
         Log.d("TAG1","I came here 2");
 
         navigationView = (BottomNavigationView) findViewById(R.id.bottom_nav);
-        navigationView.setSelectedItemId(R.id.nav_search);
+        navigationView.setSelectedItemId(R.id.nav_table);
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
                 if (itemId == R.id.nav_home) {
-                    startActivity(new Intent(getApplicationContext(), Home_Activity.class));
+                    Intent intent = new Intent(getApplicationContext(), Home_Activity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                     overridePendingTransition(0,0);
-                } else if (itemId == R.id.nav_favourite) {
-                    startActivity(new Intent(getApplicationContext(), OwnCountry_Activity.class));
+                } else if (itemId == R.id.nav_ownCountry) {
+                    Intent intent = new Intent(getApplicationContext(), OwnCountry_Activity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                     overridePendingTransition(0,0);
                 }
 
@@ -129,5 +143,13 @@ public class Table_Activity extends AppCompatActivity implements NavigationView.
             startActivity(i);
         }
         return false;
+    }
+    public void restartActivity(){
+        Intent intent = getIntent();
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(intent);
     }
 }

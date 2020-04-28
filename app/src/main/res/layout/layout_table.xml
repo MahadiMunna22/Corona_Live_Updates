@@ -13,30 +13,36 @@
         android:layout_height="match_parent"
         android:background="#000519"
         xmlns:app="http://schemas.android.com/apk/res-auto">
-        <HorizontalScrollView
-            android:layout_width="wrap_content"
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:layout_above="@id/bottom_nav"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="horizontal|vertical"
-            android:layout_above="@id/bottom_nav">
-
-            <ScrollView
-                android:id="@+id/scrollview"
+            android:id="@+id/SwipeRefreshTable">
+            <HorizontalScrollView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent" >
-
-                <TableLayout
-                    android:id="@+id/table_id"
+                android:layout_height="match_parent"
+                android:scrollbars="horizontal|vertical"
+                android:layout_above="@id/bottom_nav">
+                <android.support.v4.widget.NestedScrollView
+                    android:id="@+id/scrollview"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                </TableLayout>
-            </ScrollView>
-        </HorizontalScrollView>
+                    android:layout_height="match_parent" >
+                    <TableLayout
+                        android:id="@+id/table_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                    </TableLayout>
+                </android.support.v4.widget.NestedScrollView>
+            </HorizontalScrollView>
+        </android.support.v4.widget.SwipeRefreshLayout>
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/bottom_nav"
             app:itemTextColor="@color/cardview_light_background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorBackGround"
             app:itemIconTint="@color/cardview_light_background"
             android:layout_alignParentBottom="true"
             app:menu="@menu/bottom_navigation"/>

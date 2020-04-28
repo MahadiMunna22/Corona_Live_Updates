@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements android.widget.Se
 
         if(country == 0 &&  CountryData!= 0){
             //startActivity(new Intent(getApplicationContext(),Home_Activity.class));
+            finish();
             Intent i = new Intent(MainActivity.this, OwnCountry_Activity.class);
             startActivity(i);
             overridePendingTransition(0,0);
@@ -303,6 +304,7 @@ public class MainActivity extends AppCompatActivity implements android.widget.Se
                     CountryName = adapter.getItem(position).getCountryName();
                     writeToFile(CountryName, getApplicationContext());
                     Toast.makeText(getApplicationContext(),readFromFile(getApplicationContext()),Toast.LENGTH_LONG).show();
+                    finish();
                     startActivity(new Intent(MainActivity.this, OwnCountry_Activity.class));
                 }
             });
